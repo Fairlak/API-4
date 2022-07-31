@@ -1,16 +1,9 @@
 import os
-import requests
 import pathlib
 import os.path
+import requests
+from dotenv import load_dotenv
 from urllib.parse import urlparse
-
-
-
-pathlib.Path("images").mkdir(parents=True, exist_ok=True)
-pathlib.Path("NASA_images").mkdir(parents=True, exist_ok=True)
-pathlib.Path("EPIC_NASA_images").mkdir(parents=True, exist_ok=True)
-
-KEY_NASA = 'YaiWpAamjnLELDo7k5Y71nbHvwoqoHZRpzeF1IIw'
 
 
 def nasa_extension():
@@ -19,10 +12,10 @@ def nasa_extension():
     print(os.path.splitext(link_parse.path)[1])
 
 
-
-def nasa_pictures():
-    nasa_info = "https://api.nasa.gov/planetary/apod?api_key=YaiWpAamjnLELDo7k5Y71nbHvwoqoHZRpzeF1IIw&count=50"
-    response = requests.get(nasa_info)
+def nasa_pictures(key_nasa):
+    nasa_info = "https://api.nasa.gov/planetary/apod"
+    params = {"api_key": key_nasa, "count": 50}
+    response = requests.get(nasa_info, params=params)
     nasa_inf_json = response.json()
     nasa_url = []
     for nasa_picture_url in nasa_inf_json:
@@ -33,21 +26,19 @@ def nasa_pictures():
     return nasa_url
 
 
-
-def download_nasa_pictures():
+def download_nasa_pictures(nasa_url):
     for number, picture in enumerate(nasa_url):
         filename = 'nasa{}.jpg'.format(number)
         response = requests.get(picture)
         response.raise_for_status()
-        with open("NASA_images/"+filename, 'wb') as file:
+        with open(f"NASA_images/{filename}", 'wb') as file:
             file.write(response.content)
 
 
-
-def epic_nasa_pictures():
+def epic_nasa_pictures(key_nasa):
     epic_nasa = []
     url = "https://api.nasa.gov/EPIC/api/natural/images"
-    payload = {"api_key": KEY_NASA}
+    payload = {"api_key": key_nasa}
     response = requests.get(url, params=payload)
     epic_nasa_info = response.json()
     for epic_nasa_links in epic_nasa_info:        
@@ -59,15 +50,14 @@ def epic_nasa_pictures():
     return epic_nasa
 
 
-def dowload_epic_nasa_pictures(epic_nasa):
-    payload = {"api_key": KEY_NASA}
+def dowload_epic_nasa_pictures(epic_nasa, key_nasa):
+    payload = {"api_key": key_nasa}
     for number, picture in enumerate(epic_nasa):
         filename = 'epic_nasa{}.png'.format(number)
         response = requests.get(picture, params=payload)
         response.raise_for_status()
-        with open("EPIC_NASA_images/" + filename, 'wb') as file:
+        with open(f"EPIC_NASA_images/{filename}", 'wb') as file:
             file.write(response.content)
-
 
 
 def downloading_picture():
@@ -75,9 +65,8 @@ def downloading_picture():
     url_one_picture = "https://upload.wikimedia.org/wikipedia/commons/3/3f/HST-SM4.jpeg"
     response = requests.get(url_one_picture)
     response.raise_for_status()
-    with open("images/"+filename, 'wb') as file:
+    with open(f"spacex_images/{filename}", 'wb') as file:
         file.write(response.content)
-
 
 
 def spacex():
@@ -90,21 +79,29 @@ def spacex():
         return spacex_info["links"]["flickr"]["original"]
 
 
-
-def fetch_spacex_last_launch(spacex):
-    for image_num, image_url in enumerate(spacex):
-        filename = 'spacex{}.jpg'.format(image_num)
+def fetch_spacex_last_launch():
+    image_url = spacex()
+    for image_num, image_url in enumerate(image_url):
+        file_name = f'spacex{image_num}.jpg'
         response = requests.get(image_url)
         response.raise_for_status()
-        with open("images/"+filename, 'wb') as file:
+        with open(f"spacex_images/{file_name}", 'wb') as file:
             file.write(response.content)
 
 
-if __name__ == '__main__':
-    nasa_url = nasa_pictures()
-    download_nasa_pictures()
-    epic_nasa = epic_nasa_pictures()
-    dowload_epic_nasa_pictures(epic_nasa)
+def main():
+    load_dotenv()
+    key_nasa = os.getenv("KEY_NASA")
+    pathlib.Path("spacex_images").mkdir(parents=True, exist_ok=True)
+    fetch_spacex_last_launch()
+    pathlib.Path("NASA_images").mkdir(parents=True, exist_ok=True)
+    nasa_url = nasa_pictures(key_nasa)
+    download_nasa_pictures(nasa_url)
+    pathlib.Path("EPIC_NASA_images").mkdir(parents=True, exist_ok=True)
+    epic_nasa = epic_nasa_pictures(key_nasa)
+    dowload_epic_nasa_pictures(epic_nasa, key_nasa)
     downloading_picture()
-    spacex = spacex()
-    fetch_spacex_last_launch(spacex)
+
+
+if __name__ == '__main__':
+    main()
