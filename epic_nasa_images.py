@@ -25,7 +25,7 @@ def main():
     load_dotenv()
     nasa_key = os.getenv("NASA_KEY")
     pathlib.Path("EPIC_NASA_images").mkdir(parents=True, exist_ok=True)
-    generating_epic_nasa_links(nasa_key)
+    get_epic_nasa_images(nasa_key)
 
 
 if __name__ == '__main__':

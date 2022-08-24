@@ -24,7 +24,7 @@ def main():
     load_dotenv()
     nasa_key = os.getenv("NASA_KEY")
     pathlib.Path("NASA_images").mkdir(parents=True, exist_ok=True)
-    generating_download_nasa_links(nasa_key)
+    get_nasa_images(nasa_key)
 
 if __name__ == '__main__':
     main()
