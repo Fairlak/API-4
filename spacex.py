@@ -1,6 +1,6 @@
 import requests
 import pathlib
-from dowload_pictures import download_pictures
+from dowload_pictures import download_picture
 
 
 def spacex():
@@ -18,7 +18,7 @@ def fetch_spacex_last_launch():
     for image_num, image_url in enumerate(image_url):
         file_name = f'spacex{image_num}.jpg'
         file_path = f'spacex_images/{file_name}'
-        download_pictures(image_url, file_path)
+        download_picture(image_url, file_path)
 
 
 def main():

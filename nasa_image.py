@@ -2,7 +2,7 @@ import requests
 import pathlib
 import os
 from dotenv import load_dotenv
-from dowload_pictures import download_pictures
+from dowload_pictures import download_picture
 
 
 
@@ -18,7 +18,7 @@ def get_nasa_images(nasa_key):
         nasa_photo_link = nasa_picture_url['url']
         filename = 'nasa{}.jpg'.format(number)
         file_path = f'NASA_images/{filename}'
-        download_pictures(nasa_photo_link, file_path)
+        download_picture(nasa_photo_link, file_path)
 
 def main():
     load_dotenv()

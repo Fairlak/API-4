@@ -2,7 +2,7 @@ import requests
 import os
 import pathlib
 from dotenv import load_dotenv
-from dowload_pictures import download_pictures
+from dowload_pictures import download_picture
 
 
 def get_epic_nasa_images(nasa_key):
@@ -18,7 +18,7 @@ def get_epic_nasa_images(nasa_key):
         epic_link = 'https://api.nasa.gov/EPIC/archive/natural/{}/png/{}.png'.format(epic_date, epic_image_name)
         file_name = f'epic_nasa{number}.png'
         file_path = f'EPIC_NASA_images/{file_name}'
-        download_pictures(epic_link, file_path, payload)
+        download_picture(epic_link, file_path, payload)
 
 
 def main():
