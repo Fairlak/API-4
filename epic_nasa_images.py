@@ -5,9 +5,9 @@ from dotenv import load_dotenv
 from dowload_pictures import download_pictures
 
 
-def generating_download_epic_nasa_links(key_nasa):
+def generating_download_epic_nasa_links(nasa_key):
     url = "https://api.nasa.gov/EPIC/api/natural/images"
-    payload = {"api_key": key_nasa}
+    payload = {"api_key": nasa_key}
     response = requests.get(url, params=payload)
     response.raise_for_status()
     epic_nasa_answer = response.json()
@@ -23,9 +23,9 @@ def generating_download_epic_nasa_links(key_nasa):
 
 def main():
     load_dotenv()
-    key_nasa = os.getenv("KEY_NASA")
+    nasa_key = os.getenv("NASA_KEY")
     pathlib.Path("EPIC_NASA_images").mkdir(parents=True, exist_ok=True)
-    generating_download_epic_nasa_links(key_nasa)
+    generating_download_epic_nasa_links(nasa_key)
 
 
 if __name__ == '__main__':

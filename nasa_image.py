@@ -7,9 +7,9 @@ from dowload_pictures import download_pictures
 
 
 
-def generating_download_nasa_links(key_nasa):
+def generating_download_nasa_links(nasa_key):
     nasa_info = "https://api.nasa.gov/planetary/apod"
-    params = {"api_key": key_nasa, "count": 50}
+    params = {"api_key": nasa_key, "count": 50}
     response = requests.get(nasa_info, params=params)
     nasa_answer = response.json()
     for number, nasa_picture_url in enumerate(nasa_answer):
@@ -22,9 +22,9 @@ def generating_download_nasa_links(key_nasa):
 
 def main():
     load_dotenv()
-    key_nasa = os.getenv("KEY_NASA")
+    nasa_key = os.getenv("NASA_KEY")
     pathlib.Path("NASA_images").mkdir(parents=True, exist_ok=True)
-    generating_download_nasa_links(key_nasa)
+    generating_download_nasa_links(nasa_key)
 
 if __name__ == '__main__':
     main()
