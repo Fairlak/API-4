@@ -9,7 +9,8 @@ from dowload_pictures import download_picture
 
 def get_nasa_images(nasa_key):
     nasa_info = 'https://api.nasa.gov/planetary/apod'
-    params = {'api_key': nasa_key, 'count': 50}
+    count_pictures = 50
+    params = {'api_key': nasa_key, 'count': count_pictures}
     response = requests.get(nasa_info, params=params)
     nasa_answer = response.json()
     for number, nasa_picture_url in enumerate(nasa_answer):
