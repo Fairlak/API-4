@@ -7,7 +7,7 @@ from dowload_pictures import download_pictures
 
 
 
-def generating_download_nasa_links(nasa_key):
+def get_nasa_images(nasa_key):
     nasa_info = "https://api.nasa.gov/planetary/apod"
     params = {"api_key": nasa_key, "count": 50}
     response = requests.get(nasa_info, params=params)
