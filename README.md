@@ -33,6 +33,27 @@ Current chat ID: *********
 Forwarded from chat: ***********
 ```
 CHAT_ID хранится в `Forwarded from chat`. В переменной `TIME` вы указываете в секундах задержку между отправкой фотографий в telrgram канале.
+
+## Примеры запуска скриптов
+Сначала нужно запустить файлы: `epic_nasa_images.py`, `spacex.py`, `nasa_image.py`.
+
+Примеры:
+```python
+python epic_nasa_images.py
+```
+```python
+python spacex.py
+```
+```python
+python nasa_image.py
+```
+Далее в проекте создадутся папки с нужными фйлами. После этого мы запускаем файл `publish_image_to_telegram.py`
+
+Пример:
+```python
+python publish_image_to_telegram.py
+```
+С помощью этого файла мы отправляем загруженные файлы с фотографиями в telegram канал.
 ## Цель проекта
 
 Код написан в образовательных целях на онлайн-курсе для веб-разработчиков [dvmn.org](https://dvmn.org/).
