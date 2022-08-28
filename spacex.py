@@ -6,23 +6,22 @@ from dowload_pictures import download_picture
 def get_spacex_links():
     request = requests.get('https://api.spacexdata.com/v4/launches')
     links = request.json()
-    while len(links):
-        spacex_info = links.pop()
-        if not len(spacex_info['links']['flickr']['original']):
+    for spacex_info in links:
+        if not spacex_info['links']['flickr']['original']:
             continue
         return spacex_info['links']['flickr']['original']
 
 
 def fetch_spacex_last_launch():
-    image_url = get_spacex_links()
-    for image_num, image_url in enumerate(image_url):
+    images_links = get_spacex_links()
+    for image_num, image_url in enumerate(images_links):
         file_name = f'spacex{image_num}.jpg'
-        file_path = f'spacex_images/{file_name}'
+        file_path = f'SPACEX_images/{file_name}'
         download_picture(image_url, file_path)
 
 
 def main():
-    pathlib.Path('spacex_images').mkdir(parents=True, exist_ok=True)
+    pathlib.Path('SPACEX_images').mkdir(parents=True, exist_ok=True)
     fetch_spacex_last_launch()
 
 
