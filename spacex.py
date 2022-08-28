@@ -3,7 +3,7 @@ import pathlib
 from dowload_pictures import download_picture
 
 
-def spacex():
+def get_spacex_links():
     request = requests.get('https://api.spacexdata.com/v4/launches')
     links = request.json()
     while len(links):
@@ -14,7 +14,7 @@ def spacex():
 
 
 def fetch_spacex_last_launch():
-    image_url = spacex()
+    image_url = get_spacex_links()
     for image_num, image_url in enumerate(image_url):
         file_name = f'spacex{image_num}.jpg'
         file_path = f'spacex_images/{file_name}'
