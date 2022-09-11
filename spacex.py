@@ -5,11 +5,11 @@ from dowload_pictures import download_picture
 
 def get_spacex_links():
     request = requests.get('https://api.spacexdata.com/v4/launches')
-    links = request.json()
-    for spacex_info in links:
-        if not spacex_info['links']['flickr']['original']:
+    spacex_images = request.json()
+    for spacex_image in spacex_images:
+        if not spacex_image['links']['flickr']['original']:
             continue
-        return spacex_info['links']['flickr']['original']
+        return spacex_image['links']['flickr']['original']
 
 
 def fetch_spacex_last_launch():
