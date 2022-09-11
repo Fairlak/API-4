@@ -1,7 +1,9 @@
-import requests
 import os
+
+import requests
 import pathlib
 from dotenv import load_dotenv
+
 from dowload_pictures import download_picture
 
 

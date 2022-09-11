@@ -1,5 +1,8 @@
+import os
+
 import requests
 import pathlib
+
 from dowload_pictures import download_picture
 
 
@@ -12,17 +15,18 @@ def get_spacex_links():
         return spacex_image['links']['flickr']['original']
 
 
-def fetch_spacex_last_launch():
+def fetch_spacex_last_launch(folder_name):
     images_links = get_spacex_links()
     for image_num, image_url in enumerate(images_links):
         file_name = f'spacex{image_num}.jpg'
-        file_path = f'SPACEX_images/{file_name}'
+        file_path = os.path.join(folder_name, file_name)
         download_picture(image_url, file_path)
 
 
 def main():
-    pathlib.Path('SPACEX_images').mkdir(parents=True, exist_ok=True)
-    fetch_spacex_last_launch()
+    folder_name = 'SPACEX_images'
+    pathlib.Path(folder_name).mkdir(parents=True, exist_ok=True)
+    fetch_spacex_last_launch(folder_name)
 
 
 if __name__ == '__main__':

@@ -2,10 +2,8 @@ import os
 import random
 import time
 
-
 import telegram
 from dotenv import load_dotenv
-
 
 
 def publish_image(telegram_key, message_interval, chat_id):
@@ -28,6 +26,7 @@ def main():
     message_interval = os.getenv("TIME")
     chat_id = os.getenv("CHAT_ID")
     publish_image(telegram_key, message_interval, chat_id)
+
 
 if __name__ == '__main__':
     main()

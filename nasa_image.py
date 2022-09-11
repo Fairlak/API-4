@@ -1,10 +1,10 @@
+import os
+
 import requests
 import pathlib
-import os
 from dotenv import load_dotenv
+
 from dowload_pictures import download_picture
-
-
 
 
 def get_nasa_images(nasa_key, folder_name):
@@ -21,12 +21,14 @@ def get_nasa_images(nasa_key, folder_name):
         file_path = os.path.join(folder_name, filename)
         download_picture(nasa_photo_link, file_path)
 
+
 def main():
     folder_name = 'NASA_images'
     load_dotenv()
     nasa_key = os.getenv('NASA_KEY')
     pathlib.Path(folder_name).mkdir(parents=True, exist_ok=True)
     get_nasa_images(nasa_key, folder_name)
+
 
 if __name__ == '__main__':
     main()
