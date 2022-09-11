@@ -1,5 +1,6 @@
 .env
 .idea
+__pycache__
 /EPIC_NASA_images
 /NASA_images
 /spacex_images
