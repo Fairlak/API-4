@@ -16,7 +16,9 @@ def publish_image(telegram_key, message_interval, chat_id):
         pictures = os.listdir(path=random_dir)
         for picture in pictures:
             path = os.path.join(random_dir, picture)
-            bot.send_document(chat_id=chat_id, document=open(path, 'rb'))
+            with open(path, 'rb') as file:
+                photo = file
+            bot.send_document(chat_id=chat_id, document=photo)
             time.sleep(int(message_interval))
 
 
